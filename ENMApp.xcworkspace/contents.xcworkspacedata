@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "group:Projects"
+      name = "Projects">
+      <FileRef
+         location = "group:App/ENMApp.xcodeproj">
+      </FileRef>
+      <Group
+         location = "group:Module"
+         name = "Module">
+         <FileRef
+            location = "group:ENMFoundation/ENMFoundation.xcodeproj">
+         </FileRef>
+         <FileRef
+            location = "group:Shared/Shared.xcodeproj">
+         </FileRef>
+         <Group
+            location = "group:Data"
+            name = "Data">
+            <FileRef
+               location = "group:HomeData/HomeData.xcodeproj">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Domain"
+            name = "Domain">
+            <FileRef
+               location = "group:HomeDomain/HomeDomain.xcodeproj">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Feature"
+            name = "Feature">
+            <FileRef
+               location = "group:HomeFeature/HomeFeature.xcodeproj">
+            </FileRef>
+         </Group>
+         <Group
+            location = "group:Service"
+            name = "Service">
+            <FileRef
+               location = "group:HomeService/HomeService.xcodeproj">
+            </FileRef>
+         </Group>
+      </Group>
+   </Group>
+   <Group
+      location = "container:"
+      name = "Dependencies">
+      <FileRef
+         location = "group:Tuist/.build/tuist-derived/Swinject/Swinject.xcodeproj">
+      </FileRef>
+   </Group>
+</Workspace>
