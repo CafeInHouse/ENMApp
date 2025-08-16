@@ -48,5 +48,3 @@ extension HomeCoordinator {
         path = NavigationPath()
     }
 }
-
-

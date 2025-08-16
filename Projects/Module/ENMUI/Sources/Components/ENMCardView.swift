@@ -102,3 +102,135 @@ private extension ENMCardView {
         }
     }
 }
+
+#if DEBUG
+#Preview("Elevated Style") {
+    ScrollView {
+        VStack(spacing: 16) {
+            ENMCardView(style: .elevated) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Elevated Card")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    
+                    Text("그림자가 있는 카드 스타일입니다. 일반적으로 가장 많이 사용되는 스타일입니다.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .lineLimit(nil)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            ENMCardView(style: .elevated, padding: 16) {
+                HStack {
+                    Image(systemName: "star.fill")
+                        .foregroundColor(.yellow)
+                    Text("별점 카드")
+                        .font(.subheadline)
+                    Spacer()
+                }
+            }
+        }
+        .padding()
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Outlined Style") {
+    ScrollView {
+        VStack(spacing: 16) {
+            ENMCardView(style: .outlined) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Outlined Card")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    
+                    Text("테두리가 있는 카드 스타일입니다. 깔끔한 디자인을 원할 때 사용합니다.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .lineLimit(nil)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            ENMCardView(style: .outlined, cornerRadius: 8) {
+                HStack {
+                    Image(systemName: "heart.fill")
+                        .foregroundColor(.red)
+                    Text("좋아요 카드")
+                        .font(.subheadline)
+                    Spacer()
+                }
+            }
+        }
+        .padding()
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Filled Style") {
+    ScrollView {
+        VStack(spacing: 16) {
+            ENMCardView(style: .filled) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Filled Card")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                    
+                    Text("배경이 채워진 카드 스타일입니다. 강조하고 싶은 내용에 사용합니다.")
+                        .font(.body)
+                        .foregroundColor(.secondary)
+                        .lineLimit(nil)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+            
+            ENMCardView(style: .filled, padding: 20) {
+                HStack {
+                    Image(systemName: "bell.fill")
+                        .foregroundColor(.orange)
+                    Text("알림 카드")
+                        .font(.subheadline)
+                    Spacer()
+                }
+            }
+        }
+        .padding()
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("All Styles Comparison") {
+    ScrollView {
+        VStack(spacing: 16) {
+            ForEach(["elevated", "outlined", "filled"], id: \.self) { styleName in
+                let style: ENMCardView<AnyView>.CardStyle = {
+                    switch styleName {
+                    case "elevated": return .elevated
+                    case "outlined": return .outlined
+                    case "filled": return .filled
+                    default: return .elevated
+                    }
+                }()
+                
+                ENMCardView(style: style) {
+                    AnyView(
+                        VStack(alignment: .leading, spacing: 8) {
+                            Text("\(styleName.capitalized) Style")
+                                .font(.headline)
+                                .fontWeight(.bold)
+                            
+                            Text("이것은 \(styleName) 스타일의 카드입니다.")
+                                .font(.body)
+                                .foregroundColor(.secondary)
+                        }
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    )
+                }
+            }
+        }
+        .padding()
+    }
+    .background(Color(.systemGroupedBackground))
+}
+#endif

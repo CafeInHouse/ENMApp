@@ -111,3 +111,144 @@ private extension ENMRatingView {
         }
     }
 }
+
+#if DEBUG
+#Preview("Rating Styles") {
+    VStack(spacing: 16) {
+        // Compact 스타일
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Compact Style")
+                .font(.headline)
+                .fontWeight(.bold)
+            
+            ENMRatingView(rating: 4.5, style: .compact)
+            ENMRatingView(rating: 3.2, style: .compact)
+            ENMRatingView(rating: 5.0, style: .compact)
+        }
+        
+        Divider()
+        
+        // Detailed 스타일
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Detailed Style")
+                .font(.headline)
+                .fontWeight(.bold)
+            
+            ENMRatingView(rating: 4.5, reviewCount: 1234, style: .detailed)
+            ENMRatingView(rating: 3.2, reviewCount: 567, style: .detailed)
+            ENMRatingView(rating: 5.0, reviewCount: 89, style: .detailed)
+        }
+        
+        Divider()
+        
+        // Simple 스타일
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Simple Style")
+                .font(.headline)
+                .fontWeight(.bold)
+            
+            ENMRatingView(rating: 4.5, reviewCount: 1234, style: .simple)
+            ENMRatingView(rating: 3.2, reviewCount: 567, style: .simple)
+            ENMRatingView(rating: 5.0, style: .simple)
+        }
+    }
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Rating Values") {
+    VStack(spacing: 16) {
+        // 다양한 평점 값들
+        VStack(alignment: .leading, spacing: 8) {
+            Text("다양한 평점")
+                .font(.headline)
+                .fontWeight(.bold)
+            
+            ENMRatingView(rating: 5.0, reviewCount: 2500, style: .detailed)
+            ENMRatingView(rating: 4.8, reviewCount: 1200, style: .detailed)
+            ENMRatingView(rating: 4.5, reviewCount: 890, style: .detailed)
+            ENMRatingView(rating: 4.2, reviewCount: 456, style: .detailed)
+            ENMRatingView(rating: 3.8, reviewCount: 234, style: .detailed)
+            ENMRatingView(rating: 3.5, reviewCount: 123, style: .detailed)
+            ENMRatingView(rating: 2.7, reviewCount: 67, style: .detailed)
+            ENMRatingView(rating: 1.5, reviewCount: 12, style: .detailed)
+        }
+    }
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Star Colors") {
+    VStack(spacing: 16) {
+        // 다양한 별 색상
+        VStack(alignment: .leading, spacing: 8) {
+            Text("별 색상 변경")
+                .font(.headline)
+                .fontWeight(.bold)
+            
+            ENMRatingView(rating: 4.5, reviewCount: 123, style: .simple, starColor: .yellow)
+            ENMRatingView(rating: 4.5, reviewCount: 123, style: .simple, starColor: .orange)
+            ENMRatingView(rating: 4.5, reviewCount: 123, style: .simple, starColor: .red)
+            ENMRatingView(rating: 4.5, reviewCount: 123, style: .simple, starColor: .blue)
+            ENMRatingView(rating: 4.5, reviewCount: 123, style: .simple, starColor: .green)
+        }
+    }
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Product Card Usage") {
+    ScrollView {
+        VStack(spacing: 16) {
+            // 상품 카드에서의 사용 예시
+            VStack(alignment: .leading, spacing: 12) {
+                Text("프리미엄 헤드폰")
+                    .font(.headline)
+                    .fontWeight(.bold)
+                
+                HStack {
+                    ENMRatingView(rating: 4.7, reviewCount: 2834, style: .detailed)
+                    Spacer()
+                    Text("₩299,000")
+                        .font(.title3)
+                        .fontWeight(.bold)
+                }
+                
+                Text("고품질 노이즈 캔슬링 헤드폰으로 뛰어난 음질을 제공합니다.")
+                    .font(.body)
+                    .foregroundColor(.secondary)
+                    .lineLimit(2)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(12)
+            .shadow(radius: 2)
+            
+            // 리뷰 리스트에서의 사용 예시
+            VStack(spacing: 12) {
+                ForEach(Array(zip([4.8, 4.2, 3.9, 4.5], ["훌륭한 제품입니다!", "가성비 좋아요", "배송이 빨라요", "품질이 만족스러워요"])), id: \.0) { rating, comment in
+                    HStack(alignment: .top) {
+                        VStack(alignment: .leading, spacing: 4) {
+                            ENMRatingView(rating: rating, style: .compact)
+                            Text(comment)
+                                .font(.body)
+                                .foregroundColor(.primary)
+                        }
+                        Spacer()
+                        Text("김**")
+                            .font(.caption)
+                            .foregroundColor(.secondary)
+                    }
+                    .padding()
+                    .background(Color(.systemBackground))
+                    .cornerRadius(8)
+                    .shadow(radius: 1)
+                }
+            }
+        }
+        .padding()
+    }
+    .background(Color(.systemGroupedBackground))
+}
+#endif
