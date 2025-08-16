@@ -20,4 +20,8 @@ public struct HomeRepositoryImpl: HomeRepository {
     public func fetch() async throws -> [Product] {
         return try await dataSource.fetch()
     }
+    
+    public func fetchProduct(id: String) async throws -> Product {
+        return try await dataSource.fetch(id: id)
+    }
 }

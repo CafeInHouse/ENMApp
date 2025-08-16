@@ -9,4 +9,5 @@ import Foundation
 
 public protocol HomeRepository: Sendable {
     func fetch() async throws -> [Product]
+    func fetchProduct(id: String) async throws -> Product
 }

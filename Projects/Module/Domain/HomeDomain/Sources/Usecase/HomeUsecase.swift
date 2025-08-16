@@ -9,6 +9,7 @@ import Foundation
 
 public protocol HomeUsecase: Sendable {
     func execute() async throws -> [Product]
+    func execute(with product: Product) async throws -> Product
 }
 
 public struct HomeUsecaseImpl: HomeUsecase {
@@ -21,5 +22,9 @@ public struct HomeUsecaseImpl: HomeUsecase {
     
     public func execute() async throws -> [Product] {
         return try await repository.fetch()
+    }
+    
+    public func execute(with product: Product) async throws -> Product {
+        return try await repository.fetchProduct(id: product.id)
     }
 }

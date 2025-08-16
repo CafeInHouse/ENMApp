@@ -12,6 +12,8 @@ import HomeFeature
 import HomeDomain
 import HomeData
 
+import HomeDetailFeature
+
 // 외부 Module
 import Swinject
 
