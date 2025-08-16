@@ -36,6 +36,7 @@ let project = Project(
             resources: [],
             dependencies: [
                 .target(name: "HomeData"),
+                .external(name: "Swinject"),
                 .xctest
             ]
         )

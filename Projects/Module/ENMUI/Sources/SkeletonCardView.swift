@@ -72,3 +72,105 @@ public struct SkeletonCardView: View {
         }
     }
 }
+
+#if DEBUG
+#Preview("Skeleton Card") {
+    VStack(spacing: 16) {
+        Text("스켈레톤 카드")
+            .font(.headline)
+            .fontWeight(.bold)
+        
+        SkeletonCardView()
+    }
+    .padding()
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Skeleton Loading List") {
+    ScrollView {
+        VStack(spacing: 16) {
+            Text("로딩 중인 상품 리스트")
+                .font(.headline)
+                .fontWeight(.bold)
+                .padding()
+            
+            ForEach(0..<3) { _ in
+                SkeletonCardView()
+            }
+        }
+        .padding()
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Skeleton Grid") {
+    ScrollView {
+        VStack(spacing: 16) {
+            Text("그리드 레이아웃 로딩")
+                .font(.headline)
+                .fontWeight(.bold)
+                .padding()
+            
+            LazyVGrid(columns: [
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ], spacing: 16) {
+                ForEach(0..<6) { _ in
+                    SkeletonCardView()
+                }
+            }
+            .padding()
+        }
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("Mixed Content Loading") {
+    ScrollView {
+        VStack(spacing: 16) {
+            Text("혼합 콘텐츠 로딩")
+                .font(.headline)
+                .fontWeight(.bold)
+                .padding()
+            
+            // 헤더 스켈레톤
+            VStack(alignment: .leading, spacing: 8) {
+                Rectangle()
+                    .fill(Color.gray.opacity(0.2))
+                    .frame(height: 80)
+                    .cornerRadius(12)
+                
+                HStack {
+                    Circle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(width: 40, height: 40)
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: 100, height: 16)
+                            .cornerRadius(4)
+                        
+                        Rectangle()
+                            .fill(Color.gray.opacity(0.2))
+                            .frame(width: 80, height: 12)
+                            .cornerRadius(4)
+                    }
+                    Spacer()
+                }
+            }
+            .padding()
+            .background(Color(.systemBackground))
+            .cornerRadius(12)
+            .shadow(radius: 2)
+            
+            // 상품 카드들
+            ForEach(0..<2) { _ in
+                SkeletonCardView()
+            }
+        }
+        .padding()
+    }
+    .background(Color(.systemGroupedBackground))
+}
+#endif

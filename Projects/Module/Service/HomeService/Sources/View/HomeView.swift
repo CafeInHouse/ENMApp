@@ -71,7 +71,3 @@ private extension HomeView {
         }
     }
 }
-
-#Preview {
-    HomeView()
-}

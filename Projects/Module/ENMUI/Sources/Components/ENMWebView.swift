@@ -108,3 +108,144 @@ public struct ENMWebView: UIViewRepresentable {
         }
     }
 }
+
+#if DEBUG
+// Preview용 Mock Store
+class MockENMWebStore: ENMWebStore {
+    
+    override init() {
+        super.init()
+    }
+    
+    static func loadingState() -> MockENMWebStore {
+        let store = MockENMWebStore()
+        store.isLoading = true
+        store.title = "로딩 중..."
+        store.estimatedProgress = 0.5
+        return store
+    }
+    
+    static func successState() -> MockENMWebStore {
+        let store = MockENMWebStore()
+        store.isLoading = false
+        store.title = "Apple (대한민국)"
+        store.canGoBack = true
+        store.canGoForward = false
+        store.estimatedProgress = 1.0
+        return store
+    }
+    
+    static func errorState() -> MockENMWebStore {
+        let store = MockENMWebStore()
+        store.isLoading = false
+        store.hasError = true
+        store.errorMessage = "네트워크 연결을 확인하세요"
+        store.title = "오류"
+        return store
+    }
+}
+
+#Preview("WebView Loading") {
+    VStack {
+        Text("웹뷰 로딩 상태")
+            .font(.headline)
+            .padding()
+        
+        ENMWebView(
+            viewModel: MockENMWebStore.loadingState(),
+            url: "https://www.apple.com/kr/"
+        )
+        .frame(height: 400)
+        .cornerRadius(12)
+        .padding()
+        
+        Text("로딩 중인 웹페이지를 보여줍니다")
+            .font(.caption)
+            .foregroundColor(.secondary)
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("WebView Success") {
+    VStack {
+        Text("웹뷰 성공 상태")
+            .font(.headline)
+            .padding()
+        
+        ENMWebView(
+            viewModel: MockENMWebStore.successState(),
+            url: "https://www.apple.com/kr/"
+        )
+        .frame(height: 400)
+        .cornerRadius(12)
+        .padding()
+        
+        Text("정상적으로 로드된 웹페이지를 보여줍니다")
+            .font(.caption)
+            .foregroundColor(.secondary)
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("WebView Error") {
+    VStack {
+        Text("웹뷰 에러 상태")
+            .font(.headline)
+            .padding()
+        
+        ENMWebView(
+            viewModel: MockENMWebStore.errorState(),
+            url: "https://invalid-url.example.com"
+        )
+        .frame(height: 400)
+        .cornerRadius(12)
+        .padding()
+        
+        Text("에러가 발생한 웹페이지를 보여줍니다")
+            .font(.caption)
+            .foregroundColor(.secondary)
+    }
+    .background(Color(.systemGroupedBackground))
+}
+
+#Preview("WebView Usage") {
+    NavigationView {
+        VStack(spacing: 16) {
+            // 웹뷰 컨트롤 버튼들
+            HStack(spacing: 16) {
+                Button("← 뒤로") { }
+                    .disabled(true)
+                
+                Button("새로고침") { }
+                
+                Button("앞으로 →") { }
+                    .disabled(true)
+            }
+            .padding()
+            
+            // 웹뷰
+            ENMWebView(
+                viewModel: MockENMWebStore.successState(),
+                url: "https://www.apple.com/kr/"
+            )
+            .cornerRadius(12)
+            .shadow(radius: 2)
+            
+            // 진행률 표시
+            VStack(alignment: .leading, spacing: 4) {
+                Text("로딩 진행률")
+                    .font(.caption)
+                    .foregroundColor(.secondary)
+                
+                ProgressView(value: 1.0, total: 1.0)
+                    .progressViewStyle(LinearProgressViewStyle())
+            }
+            .padding(.horizontal)
+        }
+        .padding()
+        .navigationTitle("웹뷰 예시")
+        .navigationBarTitleDisplayMode(.inline)
+    }
+    .background(Color(.systemGroupedBackground))
+}
+#endif

@@ -26,9 +26,3 @@ private extension RootView {
         HomeView()
     }
 }
-
-#if DEBUG
-#Preview {
-    RootView()
-}
-#endif
