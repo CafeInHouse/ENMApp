@@ -1,6 +1,6 @@
 //
 //  Project.swift
-//  HomeService
+//  HomeDetailFeature
 //
 //  Created by Claude on 8/16/25.
 //
@@ -10,33 +10,33 @@
 import ProjectDescriptionHelpers
 
 let project = Project(
-    name: "HomeService",
+    name: "HomeDetailFeature",
     targets: [
         .target(
-            name: "HomeService",
+            name: "HomeDetailFeature",
             destinations: [.iPhone],
             product: .staticFramework,
-            bundleId: "com.organization.service.home",
+            bundleId: "com.organization.feature.homedetail",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
             sources: ["Sources/**"],
-            resources: ["Resources/**"],
+            resources: [],
             dependencies: [
-                .project(target: "HomeFeature", path: "../../Feature/HomeFeature"),
-                .project(target: "HomeDetailFeature", path: "../../Feature/HomeDetailFeature"),
+                .project(target: "HomeDomain", path: "../../Domain/HomeDomain"),
+                .project(target: "ENMUI", path: "../../ENMUI"),
             ]
         ),
         .target(
-            name: "HomeServiceTests",
+            name: "HomeDetailFeatureTests",
             destinations: [.iPhone],
             product: .unitTests,
-            bundleId: "com.organization.service.home.tests",
+            bundleId: "com.organization.feature.homedetail.tests",
             deploymentTargets: .iOS("17.0"),
             infoPlist: .default,
             sources: ["Tests/**"],
             resources: [],
             dependencies: [
-                .target(name: "HomeService"),
+                .target(name: "HomeDetailFeature"),
                 .xctest
             ]
         )

@@ -12,6 +12,7 @@ import SwiftUI
 import ENMUI
 import HomeDomain
 import HomeFeature
+import HomeDetailFeature
 
 public struct HomeView: View {
     
@@ -53,7 +54,7 @@ private extension HomeView {
     
     var homeView: some View {
         HomeFeatureView { product in
-            coordinator.startDetailView(with: product)
+            coordinator.navigate(to: .detail(product))
         }
     }
     
@@ -63,8 +64,10 @@ private extension HomeView {
         case .home:
             homeView
             
-        case .detail:
-            Text("123")
+        case .detail(let product):
+            HomeDetailFeatureView(product: product, backButtonTapped: {
+                coordinator.goBack()
+            })
         }
     }
 }

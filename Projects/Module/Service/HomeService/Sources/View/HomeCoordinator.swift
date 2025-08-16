@@ -34,8 +34,7 @@ public class HomeCoordinator: ObservableObject {
 }
 
 extension HomeCoordinator {
-    
-    // MARK: - Navigation Methods
+
     func navigate(to route: Route) {
         path.append(route)
     }
@@ -47,10 +46,6 @@ extension HomeCoordinator {
     
     func popToRoot() {
         path = NavigationPath()
-    }
-    
-    func startDetailView(with product: Product) {
-        path.append(Route.detail(product))
     }
 }
 
