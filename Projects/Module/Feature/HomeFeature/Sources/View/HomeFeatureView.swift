@@ -75,7 +75,16 @@ private extension HomeFeatureView {
         }
     }
     
-    var normalView: some View {
-        Text("normalView")
+    private var normalView: some View {
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(Array(viewModel.products.enumerated()), id: \.offset) { index, product in
+                    ProductCardView(product: product, onTapped: onTapped)
+                        .id("\(product.id)_\(index)")
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+        }
     }
 }
