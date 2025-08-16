@@ -9,6 +9,7 @@ import SwiftUI
 
 // 내부 Module
 import Shared
+import ENMUI
 import HomeDomain
 
 // 외부 Module
@@ -41,20 +42,38 @@ private extension HomeFeatureView {
     
     @ViewBuilder
     var _bodyView: some View {
-        switch viewModel.viewState {
-        case .loading:
-            Text("loading")
-            
-        case .normal:
-            normalView
-            
-        case .error:
-            Text("error")
+        NavigationView {
+            Group {
+                switch viewModel.viewState {
+                case .loading:
+                    loadingView
+                    
+                case .normal:
+                    normalView
+                    
+                case .error:
+                    Text("")
+                }
+            }
+            .navigationTitle("홈")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
 
 private extension HomeFeatureView {
+    
+    var loadingView: some View {
+        ScrollView {
+            LazyVStack(spacing: 16) {
+                ForEach(0..<5, id: \.self) { _ in
+                    SkeletonCardView()
+                }
+            }
+            .padding(.horizontal, 16)
+            .padding(.top, 8)
+        }
+    }
     
     var normalView: some View {
         Text("normalView")
