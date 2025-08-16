@@ -14,6 +14,9 @@
             location = "group:ENMFoundation/ENMFoundation.xcodeproj">
          </FileRef>
          <FileRef
+            location = "group:ENMUI/ENMUI.xcodeproj">
+         </FileRef>
+         <FileRef
             location = "group:Shared/Shared.xcodeproj">
          </FileRef>
          <Group

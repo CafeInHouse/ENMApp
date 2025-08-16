@@ -24,6 +24,7 @@ let project = Project(
             dependencies: [
                 .external(name: "Swinject"),
                 .project(target: "ENMFoundation", path: "../ENMFoundation"),
+                .project(target: "ENMUI", path: "../ENMUI"),
             ]
         ),
         .target(
