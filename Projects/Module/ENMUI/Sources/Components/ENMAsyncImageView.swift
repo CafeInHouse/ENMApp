@@ -7,8 +7,44 @@
 
 import SwiftUI
 
+/// 비동기 이미지 로딩을 지원하는 이미지 뷰 컴포넌트입니다.
+///
+/// ENMAsyncImageView는 URL로부터 이미지를 비동기적으로 로드하며,
+/// 로딩 중과 에러 상태에 대한 플레이스홀더를 제공합니다.
+/// rectangle, rounded, circle 세 가지 모양을 지원합니다.
+///
+/// - Example:
+/// ```swift
+/// // 기본 rectangle 모양
+/// ENMAsyncImageView(
+///     url: URL(string: "https://example.com/image.jpg"),
+///     width: 100,
+///     height: 100
+/// )
+///
+/// // 둥근 모서리
+/// ENMAsyncImageView(
+///     url: imageURL,
+///     width: 80,
+///     height: 80,
+///     shape: .rounded(cornerRadius: 12)
+/// )
+///
+/// // 원형
+/// ENMAsyncImageView(
+///     url: profileURL,
+///     width: 60,
+///     height: 60,
+///     shape: .circle
+/// )
+/// ```
 public struct ENMAsyncImageView: View {
     
+    /// 이미지의 모양을 정의하는 열거형
+    ///
+    /// - rectangle: 기본 사각형 모양
+    /// - rounded(cornerRadius): 지정된 반경의 둥근 모서리
+    /// - circle: 원형 모양
     public enum ImageShape {
         case rectangle
         case rounded(cornerRadius: CGFloat)
@@ -21,6 +57,28 @@ public struct ENMAsyncImageView: View {
     let shape: ImageShape
     let contentMode: ContentMode
     
+    /// ENMAsyncImageView를 초기화합니다.
+    ///
+    /// - Parameters:
+    ///   - url: 로드할 이미지의 URL (nil인 경우 플레이스홀더 표시)
+    ///   - width: 이미지의 너비 (nil인 경우 자동 크기)
+    ///   - height: 이미지의 높이 (nil인 경우 자동 크기)
+    ///   - shape: 이미지의 모양 (기본값: .rectangle)
+    ///   - contentMode: 이미지 콘텐츠 모드 (기본값: .fill)
+    ///
+    /// - Note: 로딩 실패 시 시스템 이미지 플레이스홀더가 표시됩니다.
+    ///
+    /// - Example:
+    /// ```swift
+    /// // 프로필 이미지 (원형)
+    /// ENMAsyncImageView(
+    ///     url: URL(string: userImageURL),
+    ///     width: 50,
+    ///     height: 50,
+    ///     shape: .circle,
+    ///     contentMode: .fill
+    /// )
+    /// ```
     public init(
         url: URL?,
         width: CGFloat? = nil,

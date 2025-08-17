@@ -7,6 +7,30 @@
 
 import SwiftUI
 
+/// 데이터 로딩 중에 표시되는 스켈레톤 플레이스홀더 카드 컴포넌트입니다.
+///
+/// SkeletonCardView는 실제 카드 콘텐츠가 로드되기 전에 사용자에게
+/// 로딩 상태를 시각적으로 알려주는 스켈레톤 UI를 제공합니다.
+/// 부드러운 애니메이션 효과로 로딩 중임을 표현합니다.
+///
+/// - Example:
+/// ```swift
+/// // 로딩 상태에서 스켈레톤 표시
+/// if isLoading {
+///     VStack {
+///         ForEach(0..<3) { _ in
+///             SkeletonCardView()
+///         }
+///     }
+/// } else {
+///     // 실제 카드 콘텐츠
+///     ForEach(products) { product in
+///         ProductCardView(product: product)
+///     }
+/// }
+/// ```
+///
+/// - Note: 화면 너비에 따라 자동으로 크기가 조정되며, 16:9 비율의 이미지 영역을 포함합니다.
 public struct SkeletonCardView: View {
     
     @State private var isAnimating = false
@@ -19,6 +43,9 @@ public struct SkeletonCardView: View {
         cardWidth * 9 / 16
     }
     
+    /// SkeletonCardView를 초기화합니다.
+    ///
+    /// - Note: 추가 파라미터 없이 기본 스타일로 생성됩니다.
     public init() {}
     
     public var body: some View {

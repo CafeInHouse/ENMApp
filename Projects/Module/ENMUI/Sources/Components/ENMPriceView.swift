@@ -7,8 +7,35 @@
 
 import SwiftUI
 
+/// 가격 정보를 다양한 스타일로 표시하는 컴포넌트입니다.
+///
+/// ENMPriceView는 일반 가격, 할인 가격, 할인율을 표시할 수 있으며,
+/// normal, discount, compact 세 가지 스타일을 지원합니다.
+/// 통화 기호도 커스터마이징 가능합니다.
+///
+/// - Example:
+/// ```swift
+/// // 일반 가격
+/// ENMPriceView(price: 29900)
+///
+/// // 할인 가격
+/// ENMPriceView(
+///     price: 39900,
+///     discountPrice: 29900,
+///     discountRate: 25,
+///     style: .discount
+/// )
+///
+/// // 달러 표시
+/// ENMPriceView(price: 299, currencySymbol: "$")
+/// ```
 public struct ENMPriceView: View {
     
+    /// 가격 표시 스타일을 정의하는 열거형
+    ///
+    /// - normal: 기본 가격 표시 스타일
+    /// - discount: 할인 정보를 강조하는 스타일
+    /// - compact: 공간을 절약하는 간결한 스타일
     public enum PriceStyle {
         case normal
         case discount
@@ -21,6 +48,26 @@ public struct ENMPriceView: View {
     let style: PriceStyle
     let currencySymbol: String
     
+    /// ENMPriceView를 초기화합니다.
+    ///
+    /// - Parameters:
+    ///   - price: 원래 가격 (필수)
+    ///   - discountPrice: 할인된 가격 (선택사항)
+    ///   - discountRate: 할인율 퍼센트 (선택사항)
+    ///   - style: 가격 표시 스타일 (기본값: .normal)
+    ///   - currencySymbol: 통화 기호 (기본값: "₩")
+    ///
+    /// - Note: discountPrice와 discountRate가 모두 제공되면 할인 정보가 표시됩니다.
+    ///
+    /// - Example:
+    /// ```swift
+    /// // 할인 가격 표시
+    /// ENMPriceView(
+    ///     price: 50000,
+    ///     discountPrice: 40000,
+    ///     discountRate: 20
+    /// )
+    /// ```
     public init(
         price: Int,
         discountPrice: Int? = nil,

@@ -7,8 +7,30 @@
 
 import SwiftUI
 
+/// 별점과 리뷰 수를 표시하는 평점 컴포넌트입니다.
+///
+/// ENMRatingView는 0.0~5.0 범위의 평점을 별 모양으로 표시하며,
+/// compact, detailed, simple 세 가지 스타일을 제공합니다.
+/// 리뷰 수와 별 색상도 커스터마이징 가능합니다.
+///
+/// - Example:
+/// ```swift
+/// // 기본 detailed 스타일
+/// ENMRatingView(rating: 4.5, reviewCount: 1234)
+///
+/// // 간결한 compact 스타일
+/// ENMRatingView(rating: 3.8, style: .compact)
+///
+/// // 커스텀 색상
+/// ENMRatingView(rating: 4.2, starColor: .orange)
+/// ```
 public struct ENMRatingView: View {
     
+    /// 평점 표시 스타일을 정의하는 열거형
+    ///
+    /// - compact: 별점만 간결하게 표시
+    /// - detailed: 별점, 평점 숫자, 리뷰 수를 모두 표시
+    /// - simple: 별점과 평점 숫자만 표시
     public enum DisplayStyle {
         case compact
         case detailed
@@ -20,6 +42,25 @@ public struct ENMRatingView: View {
     let style: DisplayStyle
     let starColor: Color
     
+    /// ENMRatingView를 초기화합니다.
+    ///
+    /// - Parameters:
+    ///   - rating: 평점 (0.0~5.0 범위)
+    ///   - reviewCount: 리뷰 수 (선택사항)
+    ///   - style: 표시 스타일 (기본값: .detailed)
+    ///   - starColor: 별의 색상 (기본값: .yellow)
+    ///
+    /// - Note: rating 값은 자동으로 0.0~5.0 범위로 제한됩니다.
+    ///
+    /// - Example:
+    /// ```swift
+    /// // 상세 정보 포함
+    /// ENMRatingView(
+    ///     rating: 4.7,
+    ///     reviewCount: 2834,
+    ///     style: .detailed
+    /// )
+    /// ```
     public init(
         rating: Double,
         reviewCount: Int? = nil,
