@@ -9,11 +9,45 @@ import Foundation
 import SwiftUI
 import WebKit
 
+/// WKWebView를 래핑한 SwiftUI 웹뷰 컴포넌트입니다.
+///
+/// ENMWebView는 WKWebView를 SwiftUI에서 사용할 수 있도록 래핑한 컴포넌트로,
+/// 웹페이지 로딩, 진행률 추적, 네비게이션 상태를 관리합니다.
+/// ENMWebStore를 통해 상태를 관찰하고 제어할 수 있습니다.
+///
+/// - Example:
+/// ```swift
+/// @StateObject private var webStore = ENMWebStore()
+///
+/// ENMWebView(
+///     viewModel: webStore,
+///     url: "https://www.apple.com"
+/// )
+/// .onAppear {
+///     // 웹뷰 상태 관찰 가능
+///     if webStore.isLoading {
+///         // 로딩 중 처리
+///     }
+/// }
+/// ```
+///
+/// - Note: ENMWebStore를 사용하여 웹뷰의 상태를 관찰하고 제어할 수 있습니다.
 public struct ENMWebView: UIViewRepresentable {
     
     @ObservedObject var store: ENMWebStore
     let url: String
     
+    /// ENMWebView를 초기화합니다.
+    ///
+    /// - Parameters:
+    ///   - viewModel: 웹뷰 상태를 관리하는 ENMWebStore 인스턴스
+    ///   - url: 로드할 웹페이지의 URL 문자열
+    ///
+    /// - Example:
+    /// ```swift
+    /// let webStore = ENMWebStore()
+    /// ENMWebView(viewModel: webStore, url: "https://example.com")
+    /// ```
     public init(viewModel: ENMWebStore, url: String) {
         self.store = viewModel
         self.url = url

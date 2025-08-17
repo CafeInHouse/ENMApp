@@ -22,8 +22,7 @@ let project = Project(
             sources: ["Sources/**"],
             resources: [],
             dependencies: [
-                .project(target: "HomeDomain", path: "../../Domain/HomeDomain"),
-                .project(target: "ENMUI", path: "../../ENMUI"),
+                .project(target: "HomeData", path: "../../Data/HomeData"),
             ]
         ),
         .target(

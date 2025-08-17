@@ -9,18 +9,54 @@ import Foundation
 import SwiftUI
 import WebKit
 
+/// ENMWebView의 상태를 관리하는 ViewModel 클래스입니다.
+///
+/// ENMWebStore는 WKWebView의 상태 정보를 ObservableObject로 래핑하여
+/// SwiftUI에서 반응형으로 사용할 수 있도록 합니다.
+/// 로딩 상태, 진행률, 네비게이션 정보, 에러 상태 등을 제공합니다.
+///
+/// - Example:
+/// ```swift
+/// @StateObject private var webStore = ENMWebStore()
+///
+/// VStack {
+///     if webStore.isLoading {
+///         ProgressView("Loading...", value: webStore.estimatedProgress)
+///     }
+///     
+///     ENMWebView(viewModel: webStore, url: "https://example.com")
+///     
+///     HStack {
+///         Button("Back") { webStore.goBack() }
+///             .disabled(!webStore.canGoBack)
+///         Button("Forward") { webStore.goForward() }
+///             .disabled(!webStore.canGoForward)
+///     }
+/// }
+/// ```
 public class ENMWebStore: ObservableObject {
     
+    /// 웹페이지 로딩 상태
     @Published public var isLoading = false
+    /// 에러 발생 여부
     @Published public var hasError = false
+    /// 에러 메시지
     @Published public var errorMessage = ""
+    /// 뒤로 가기 가능 여부
     @Published public var canGoBack = false
+    /// 앞으로 가기 가능 여부
     @Published public var canGoForward = false
+    /// 로딩 진행률 (0.0 ~ 1.0)
     @Published public var estimatedProgress: Double = 0.0
+    /// 웹페이지 제목
     @Published public var title = ""
     
+    /// 연결된 WKWebView 인스턴스 (weak reference)
     public weak var webView: WKWebView?
     
+    /// ENMWebStore를 초기화합니다.
+    ///
+    /// - Note: 모든 상태 값들이 기본값으로 초기화됩니다.
     public init() {}
     
     public func loadURL(_ urlString: String) {

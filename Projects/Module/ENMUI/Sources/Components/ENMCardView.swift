@@ -7,8 +7,33 @@
 
 import SwiftUI
 
+/// 재사용 가능한 카드 컴포넌트로 다양한 스타일과 커스터마이징을 지원합니다.
+///
+/// ENMCardView는 ENMUI 디자인 시스템의 핵심 컴포넌트로, elevated, outlined, filled 세 가지 스타일을 제공합니다.
+/// 내부 콘텐츠는 제네릭 View로 받아 유연한 구성이 가능하며, 패딩과 모서리 반경을 커스터마이징할 수 있습니다.
+///
+/// - Example:
+/// ```swift
+/// // 기본 elevated 스타일
+/// ENMCardView {
+///     Text("카드 내용")
+/// }
+///
+/// // 커스터마이징된 outlined 스타일
+/// ENMCardView(style: .outlined, padding: 16, cornerRadius: 12) {
+///     VStack {
+///         Text("제목")
+///         Text("부제목")
+///     }
+/// }
+/// ```
 public struct ENMCardView<Content: View>: View {
     
+    /// 카드의 시각적 스타일을 정의하는 열거형
+    ///
+    /// - elevated: 그림자가 있는 기본 스타일 (가장 일반적)
+    /// - outlined: 테두리만 있는 깔끔한 스타일
+    /// - filled: 배경이 채워진 강조 스타일
     public enum CardStyle {
         case elevated
         case outlined
@@ -20,6 +45,20 @@ public struct ENMCardView<Content: View>: View {
     let padding: CGFloat
     let cornerRadius: CGFloat
     
+    /// ENMCardView를 초기화합니다.
+    ///
+    /// - Parameters:
+    ///   - style: 카드의 시각적 스타일 (기본값: .elevated)
+    ///   - padding: 내부 콘텐츠의 패딩 값 (기본값: 12)
+    ///   - cornerRadius: 카드의 모서리 반경 (기본값: 16)
+    ///   - content: 카드 내부에 표시될 뷰 콘텐츠
+    ///
+    /// - Example:
+    /// ```swift
+    /// ENMCardView(style: .outlined, padding: 20) {
+    ///     Text("커스터마이징된 카드")
+    /// }
+    /// ```
     public init(
         style: CardStyle = .elevated,
         padding: CGFloat = 12,

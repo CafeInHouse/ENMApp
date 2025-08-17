@@ -7,8 +7,32 @@
 
 import SwiftUI
 
+/// 소형 라벨이나 태그를 표시하는 칩 컴포넌트입니다.
+///
+/// ENMChipView는 카테고리, 태그, 필터 등에 사용할 수 있는 작은 라벨 컴포넌트입니다.
+/// primary, secondary, success, warning, info, custom 6가지 스타일을 제공합니다.
+///
+/// - Example:
+/// ```swift
+/// // 기본 칩
+/// ENMChipView("태그", style: .primary)
+///
+/// // 커스텀 색상 칩
+/// ENMChipView("특별", style: .custom(color: .pink))
+///
+/// // 칩 그룹
+/// ENMChipGroup(items: ["Apple", "Samsung", "LG"], style: .secondary)
+/// ```
 public struct ENMChipView: View {
     
+    /// 칩의 시각적 스타일을 정의하는 열거형
+    ///
+    /// - primary: 주요 액션이나 중요한 정보 (파란색)
+    /// - secondary: 일반적인 정보나 보조 액션 (회색)
+    /// - success: 성공이나 긍정적인 상태 (녹색)
+    /// - warning: 주의나 경고 상태 (주황색)
+    /// - info: 정보 제공 (보라색)
+    /// - custom(color): 사용자 정의 색상
     public enum ChipStyle {
         case primary
         case secondary
@@ -55,6 +79,20 @@ public struct ENMChipView: View {
     let text: String
     let style: ChipStyle
     
+    /// ENMChipView를 초기화합니다.
+    ///
+    /// - Parameters:
+    ///   - text: 칩에 표시될 텍스트
+    ///   - style: 칩의 시각적 스타일 (기본값: .primary)
+    ///
+    /// - Example:
+    /// ```swift
+    /// // 기본 primary 스타일
+    /// ENMChipView("새상품")
+    ///
+    /// // warning 스타일
+    /// ENMChipView("재고부족", style: .warning)
+    /// ```
     public init(
         _ text: String,
         style: ChipStyle = .primary
@@ -74,11 +112,39 @@ public struct ENMChipView: View {
     }
 }
 
+/// 여러 개의 칩을 그룹으로 표시하는 컨테이너 컴포넌트입니다.
+///
+/// ENMChipGroup은 텍스트 배열을 받아 여러 개의 칩을 자동으로 배치합니다.
+/// FlowLayout을 사용하여 화면 너비에 맞게 줄바꿈이 자동으로 처리됩니다.
+///
+/// - Example:
+/// ```swift
+/// // 카테고리 칩 그룹
+/// ENMChipGroup(
+///     items: ["전자제품", "스마트폰", "액세서리"],
+///     style: .primary
+/// )
+///
+/// // 태그 칩 그룹 (간격 조정)
+/// ENMChipGroup(
+///     items: ["무료배송", "할인중", "신상품"],
+///     style: .success,
+///     spacing: 8
+/// )
+/// ```
 public struct ENMChipGroup: View {
     let items: [String]
     let style: ENMChipView.ChipStyle
     let spacing: CGFloat
     
+    /// ENMChipGroup을 초기화합니다.
+    ///
+    /// - Parameters:
+    ///   - items: 표시할 텍스트 배열
+    ///   - style: 모든 칩에 적용될 스타일 (기본값: .primary)
+    ///   - spacing: 칩 사이의 간격 (기본값: 6)
+    ///
+    /// - Note: 칩들은 FlowLayout으로 배치되어 화면 너비에 따라 자동 줄바꿈됩니다.
     public init(
         items: [String],
         style: ENMChipView.ChipStyle = .primary,
